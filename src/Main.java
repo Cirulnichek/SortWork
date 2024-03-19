@@ -1,172 +1,125 @@
-import java.util.Random;
+import domain.Person;
+import domain.Pet;
+
+import java.util.*;
 
 public class Main {
-    public static void printArr(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i] + " ");
-        }
-        System.out.println();
-    }
+    public static Person[] array = new Person[10];
+    public static Random random = new Random();
 
-    public static void fill(int[] arr) {
-        Random random = new Random();
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = random.nextInt(arr.length);
-        }
-    }
-
-    public static void bubble_sort(int[] arr) {
-        System.out.println("Bubble sort has started");
-        System.out.println("Array size: " + arr.length);
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 1; j < arr.length - i; j++) {
-                if (arr[j - 1] > arr[j]) {
-                    int temp = arr[j - 1];
-                    arr[j - 1] = arr[j];
-                    arr[j] = temp;
-                }
-            }
-        }
-        long end = System.currentTimeMillis();
-        System.out.println("Bubble sort has ended, time: " + (end - start));
-        System.out.println();
-    }
-
-    public static void insert_sort(int[] arr) {
-        System.out.println("Insert sort has started");
-        System.out.println("Array size: " + arr.length);
-        long start = System.currentTimeMillis();
-        for (int i = 1; i < arr.length; i++) {
-            int j = i;
-            while (j > 0 && arr[j - 1] > arr[j]) {
-                int temp = arr[j - 1];
-                arr[j - 1] = arr[j];
-                arr[j] = temp;
-                j--;
-            }
-        }
-        long end = System.currentTimeMillis();
-        System.out.println("Insert sort has ended, time: " + (end - start));
-        System.out.println();
-    }
-
-    public static void quick_sort(int[] arr, int low, int high) {
-        if (arr.length == 0)
-            return;
-        if (low >= high)
-            return;
-        int middle = low + (high - low) / 2;
-        int pivot = arr[middle];
-        int i = low, j = high;
-        while (i <= j) {
-            while (arr[i] < pivot) {
-                i++;
-            }
-            while (arr[j] > pivot) {
-                j--;
-            }               
-            if (i <= j) {
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-                i++;
-                j--;
-            }
-        }
-        if (low < j)
-            quick_sort(arr, low, j);
-        if (high > i)
-            quick_sort(arr, i, high);
+    public static void generate() {
+        array[0] = new Person(1L, "Valera", random.nextInt(100));
+        array[1] = new Person(2L, "Alex", random.nextInt(100));
+        array[2] = new Person(3L, "Bob", random.nextInt(100));
+        array[3] = new Person(4L, "Alice", random.nextInt(100));
+        array[4] = new Person(5L, "Egor", random.nextInt(100));
+        array[5] = new Person(6L, "Mike", random.nextInt(100));
+        array[6] = new Person(7L, "Donald", random.nextInt(100));
+        array[7] = new Person(8L, "John", random.nextInt(100));
+        array[8] = new Person(9L, "Ryan", random.nextInt(100));
+        array[9] = new Person(10L, "Nataly", random.nextInt(100));
     }
 
     public static void main(String[] args) {
-        Random random = new Random();
-        {
-            int[] arr = new int[100];
-            fill(arr);
-            printArr(arr);
-            bubble_sort(arr);
-            printArr(arr);
-            System.out.println();
+        generate();
+        System.out.println(Arrays.toString(array));
+        Arrays.sort(array, new Comparator<Person>() {
+            @Override
+            public int compare(Person o1, Person o2) {
+                return o1.getAge() - o2.getAge();
+            }
+        });
+        System.out.println(Arrays.toString(array));
+        System.out.println();
 
-            int[] arr2 = new int[1000];
-            fill(arr2);
-            printArr(arr2);
-            bubble_sort(arr2);
-            printArr(arr2);
-            System.out.println();
+        generate();
+        System.out.println(Arrays.toString(array));
+        Arrays.sort(array);
+        System.out.println(Arrays.toString(array));
+        System.out.println();
 
-            int[] arr3 = new int[10000];
-            fill(arr3);
-            printArr(arr3);
-            bubble_sort(arr3);
-            printArr(arr3);
-            System.out.println();
+        List<Person> personList = new ArrayList<>();
+        personList.add(new Person(1L, "Valera", random.nextInt(100)));
+        personList.add(new Person(2L, "Alex", random.nextInt(100)));
+        personList.add(new Person(3L, "Bob", random.nextInt(100)));
+        personList.add(new Person(4L, "Alice", random.nextInt(100)));
+        personList.add(new Person(5L, "Egor", random.nextInt(100)));
+        personList.add(new Person(6L, "Mike", random.nextInt(100)));
+        personList.add(new Person(7L, "Donald", random.nextInt(100)));
+        personList.add(new Person(8L, "John", random.nextInt(100)));
+        personList.add(new Person(9L, "Ryan", random.nextInt(100)));
+        personList.add(new Person(10L, "Nataly", random.nextInt(100)));
+        System.out.println(personList);
+        Collections.sort(personList);
+        System.out.println(personList);
+        System.out.println();
+
+        Set100Int set100Int = new Set100Int();
+
+        set100Int.add(52);
+        System.out.println(set100Int.contains(52));
+        System.out.println(set100Int.contains(77));
+        set100Int.add(77);
+        System.out.println(set100Int.contains(77));
+        set100Int.add(5);
+        System.out.println(set100Int.add(1111));
+        System.out.println();
+
+        Set<Person> personSet = new HashSet<>();
+        personSet.add(new Person(1L, "Valera", random.nextInt(100)));
+        personSet.add(new Person(2L, "Alex", random.nextInt(100)));
+        personSet.add(new Person(3L, "Bob", random.nextInt(100)));
+        personSet.add(new Person(4L, "Valera", random.nextInt(100)));
+        personSet.add(new Person(4L, "Valera", random.nextInt(100)));
+        System.out.println(personSet);
+
+
+
+        Map<String, Integer> productHashMap = new HashMap<>();
+        productHashMap.put("хлеб", 35);
+        productHashMap.put("молоко", 60);
+        productHashMap.put("ряженка", 60);
+        productHashMap.put("сыр", 350);
+
+        System.out.println(productHashMap);
+        Integer bread = productHashMap.put("хлеб", 70);
+        System.out.println(productHashMap);
+        System.out.println(bread);
+        System.out.println("=====================");
+        for (Map.Entry<String, Integer> entry: productHashMap.entrySet()) {
+            if (entry.getKey().equals("хлеб") || entry.getKey().equals("ряженка")) {
+                System.out.println(entry.getValue());
+            }
         }
-
-        {
-            int[] arr = new int[100];
-            fill(arr);
-            printArr(arr);
-            insert_sort(arr);
-            printArr(arr);
-            System.out.println();
-
-            int[] arr2 = new int[1000];
-            fill(arr2);
-            printArr(arr2);
-            insert_sort(arr2);
-            printArr(arr2);
-            System.out.println();
-
-            int[] arr3 = new int[10000];
-            fill(arr3);
-            printArr(arr3);
-            insert_sort(arr3);
-            printArr(arr3);
-            System.out.println();
+        System.out.println("=====================");
+        for (Integer value : productHashMap.values()) {
+            System.out.println(value);
         }
-
-        {
-            int[] arr = new int[100];
-            fill(arr);
-            printArr(arr);
-            System.out.println("Quick sort has started");
-            System.out.println("Array size: " + arr.length);
-            long start = System.currentTimeMillis();
-            quick_sort(arr, 0, 99);
-            long end = System.currentTimeMillis();
-            System.out.println("Quick sort has ended, time: " + (end - start));
-            System.out.println();
-            printArr(arr);
-            System.out.println();
-
-            int[] arr2 = new int[1000];
-            fill(arr2);
-            printArr(arr2);
-            System.out.println("Quick sort has started");
-            System.out.println("Array size: " + arr2.length);
-            start = System.currentTimeMillis();
-            quick_sort(arr2, 0, 999);
-            end = System.currentTimeMillis();
-            System.out.println("Quick sort has ended, time: " + (end - start));
-            System.out.println();
-            printArr(arr2);
-            System.out.println();
-
-            int[] arr3 = new int[10000];
-            fill(arr3);
-            printArr(arr3);
-            System.out.println("Quick sort has started");
-            System.out.println("Array size: " + arr3.length);
-            start = System.currentTimeMillis();
-            quick_sort(arr3, 0, 9999);
-            end = System.currentTimeMillis();
-            System.out.println("Quick sort has ended, time: " + (end - start));
-            System.out.println();
-            printArr(arr3);
-            System.out.println();
+        System.out.println("=====================");
+        for (String s : productHashMap.keySet()) {
+            System.out.println(s);
         }
+        System.out.println("=====================");
+        System.out.println(productHashMap.get("хлеб"));
+        System.out.println("=====================");
+
+        Map<String, Integer> productTreeMap = new TreeMap<>();
+        productHashMap.put("хлеб", 35);
+        productHashMap.put("молоко", 60);
+        productHashMap.put("ряженка", 60);
+        productHashMap.put("сыр", 350);
+        System.out.println(productTreeMap);
+        System.out.println("=====================");
+
+        Map<Person, Pet> personPetTreeMap = new TreeMap<>();
+        personPetTreeMap.put(
+                new Person(1, "Иван", 18),
+                new Pet("Шарик")
+        );
+        personPetTreeMap.put(
+                new Person(2, "Александр", 29),
+                new Pet("Джава")
+        );
+        System.out.println(personPetTreeMap);
     }
 }
